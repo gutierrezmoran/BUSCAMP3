@@ -25,6 +25,7 @@ public class ActionBuscar implements ActionListener{
 				bridge.getControl().limpiarFicherosMP3();
 				bridge.getProgreso().setIndeterminate(false);
 				bridge.getBuscar().setEnabled(true);
+				bridge.getExportar().setEnabled(true);
 				return null;
 			}
 			
@@ -33,6 +34,7 @@ public class ActionBuscar implements ActionListener{
 		if(!this.bridge.getAccionesControl().isPathEmpty()) {
 			this.bridge.getProgreso().setIndeterminate(true);
 			this.bridge.getBuscar().setEnabled(false);
+			this.bridge.getExportar().setEnabled(false);
 			worker.execute();
 		}
 	}

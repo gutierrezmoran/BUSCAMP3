@@ -21,6 +21,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.BoxLayout;
+import java.awt.Toolkit;
 
 public class UI extends JFrame {
 
@@ -37,9 +38,10 @@ public class UI extends JFrame {
 	protected JButton exportar;
 
 	public UI() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UI.class.getResource("/assets/icon.png")));
 		setSize(new Dimension(1000, 800));
 		setPreferredSize(new Dimension(1000, 800));
-		setTitle("BUSCADOR MP3");
+		setTitle("BUSCAMP3");
 		setMinimumSize(new Dimension(1000, 650));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -57,14 +59,21 @@ public class UI extends JFrame {
 		
 		JPanel panelPath = new JPanel();
 		panelInferior.add(panelPath, BorderLayout.CENTER);
-		panelPath.setLayout(new BorderLayout(0, 2));
+		panelPath.setLayout(new BorderLayout(0, 5));
 		
 		JLabel lblRutaDeBsqueda = new JLabel("Ruta de b\u00FAsqueda");
-		lblRutaDeBsqueda.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblRutaDeBsqueda.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		panelPath.add(lblRutaDeBsqueda, BorderLayout.NORTH);
 		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.DARK_GRAY));
+		panelPath.add(panel, BorderLayout.CENTER);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
 		path = new JTextField();
-		panelPath.add(path, BorderLayout.SOUTH);
+		path.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.add(path);
 		path.setColumns(10);
 		
 		JPanel panelBotones = new JPanel();
@@ -134,8 +143,10 @@ public class UI extends JFrame {
 		panelListado.setLayout(new BoxLayout(panelListado, BoxLayout.X_AXIS));
 		
 		listado = new JTextArea();
+		listado.setEnabled(false);
 		listado.setBorder(new EmptyBorder(10, 10, 10, 10));
 		listado.setEditable(false);
+		listado.setDisabledTextColor(Color.BLACK);
 		
 		scrollListado = new JScrollPane(listado);
 		panelListado.add(scrollListado);
@@ -154,16 +165,18 @@ public class UI extends JFrame {
 		panelRecorrido.setLayout(new BoxLayout(panelRecorrido, BoxLayout.X_AXIS));
 		
 		recorrido = new JTextArea();
+		recorrido.setEnabled(false);
 		recorrido.setBorder(new EmptyBorder(10, 10, 10, 10));
 		recorrido.setForeground(Color.WHITE);
 		recorrido.setBackground(Color.DARK_GRAY);
 		recorrido.setEditable(false);
+		recorrido.setDisabledTextColor(Color.WHITE);
 		
 		scrollRecorrido = new JScrollPane(recorrido);
 		panelRecorrido.add(scrollRecorrido);
 		scrollRecorrido.setBorder(null);
 		
-		JLabel lblTrazaDeBsqueda = new JLabel("Traza");
+		JLabel lblTrazaDeBsqueda = new JLabel("Traza de b\u00FAsqueda");
 		lblTrazaDeBsqueda.setOpaque(true);
 		lblTrazaDeBsqueda.setBackground(SystemColor.controlHighlight);
 		lblTrazaDeBsqueda.setForeground(Color.DARK_GRAY);
@@ -183,7 +196,7 @@ public class UI extends JFrame {
 		contentPane.add(panelSuperior, BorderLayout.NORTH);
 		panelSuperior.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblBuscadorDeArchivos = new JLabel("BUSCADOR MP3");
+		JLabel lblBuscadorDeArchivos = new JLabel("BUSCAMP3");
 		lblBuscadorDeArchivos.setForeground(Color.WHITE);
 		lblBuscadorDeArchivos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblBuscadorDeArchivos.setBorder(new EmptyBorder(10, 10, 10, 10));
