@@ -11,15 +11,27 @@ public class AccionesControl {
 	}
 
 	public void buscar(String path) {
-		this.bridge.getControl().buscar(path);
+		this.bridge.getControl().realizarBusqueda(path);
 	}
 	
 	public void actualizarListado() {
 		this.bridge.vaciarListado();
 
 		for (String path : this.bridge.getControl().getFicherosMP3()) {
-			this.bridge.getListado().setText(path + "\n\n");
+			this.bridge.getListado().setText(this.bridge.getListado().getText() + path + "\n");
 		}
+	}
+	
+	public void actualizarRecorrido() {
+		this.bridge.vaciarRecorrido();
+		
+		for (String path : this.bridge.getControl().getBusqueda()) {
+			this.bridge.getRecorrido().setText(this.bridge.getRecorrido().getText() + path + "\n");
+		}
+	}
+	
+	public boolean isPathEmpty() {
+		return this.bridge.getPath().getText().equals("");
 	}
 	
 	public void actualizarCantidadFicherosMP3() {
