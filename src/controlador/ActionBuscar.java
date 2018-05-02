@@ -1,9 +1,7 @@
 package controlador;
 
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.SwingWorker;
 
 public class ActionBuscar implements ActionListener{
@@ -26,6 +24,7 @@ public class ActionBuscar implements ActionListener{
 				bridge.getAccionesControl().actualizarCantidadFicherosMP3();
 				bridge.getControl().limpiarFicherosMP3();
 				bridge.getProgreso().setIndeterminate(false);
+				bridge.getBuscar().setEnabled(true);
 				return null;
 			}
 			
@@ -33,6 +32,7 @@ public class ActionBuscar implements ActionListener{
 
 		if(!this.bridge.getAccionesControl().isPathEmpty()) {
 			this.bridge.getProgreso().setIndeterminate(true);
+			this.bridge.getBuscar().setEnabled(false);
 			worker.execute();
 		}
 	}

@@ -19,6 +19,8 @@ import java.awt.Cursor;
 import java.awt.GridLayout;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.BoxLayout;
 
 public class UI extends JFrame {
 
@@ -30,12 +32,15 @@ public class UI extends JFrame {
 	protected JButton limpiar;
 	protected JTextArea recorrido;
 	protected JProgressBar progreso;
+	protected JScrollPane scrollListado;
+	protected JScrollPane scrollRecorrido;
+	protected JButton exportar;
 
 	public UI() {
 		setSize(new Dimension(1000, 800));
 		setPreferredSize(new Dimension(1000, 800));
-		setTitle("Buscador MP3");
-		setMinimumSize(new Dimension(900, 500));
+		setTitle("BUSCADOR MP3");
+		setMinimumSize(new Dimension(1000, 650));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -62,7 +67,13 @@ public class UI extends JFrame {
 		panelPath.add(path, BorderLayout.SOUTH);
 		path.setColumns(10);
 		
+		JPanel panelBotones = new JPanel();
+		panelBotones.setOpaque(false);
+		panelInferior.add(panelBotones, BorderLayout.EAST);
+		panelBotones.setLayout(new GridLayout(0, 2, 5, 0));
+		
 		buscar = new JButton("Buscar");
+		panelBotones.add(buscar);
 		buscar.setPreferredSize(new Dimension(105, 23));
 		buscar.setForeground(Color.WHITE);
 		buscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -70,7 +81,15 @@ public class UI extends JFrame {
 		buscar.setBackground(Color.DARK_GRAY);
 		buscar.setBorder(new EmptyBorder(10, 15, 10, 15));
 		buscar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panelInferior.add(buscar, BorderLayout.EAST);
+		
+		exportar = new JButton("Exportar b\u00FAsqueda");
+		exportar.setFocusPainted(false);
+		exportar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		exportar.setForeground(Color.WHITE);
+		exportar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		exportar.setBorder(new EmptyBorder(10, 15, 10, 15));
+		exportar.setBackground(Color.DARK_GRAY);
+		panelBotones.add(exportar);
 		
 		JPanel panelCentral = new JPanel();
 		panelCentral.setOpaque(false);
@@ -102,17 +121,27 @@ public class UI extends JFrame {
 		
 		JPanel panelBusqueda = new JPanel();
 		panelCentral.add(panelBusqueda, BorderLayout.CENTER);
-		panelBusqueda.setLayout(new GridLayout(2, 1, 0, 5));
+		panelBusqueda.setLayout(new BoxLayout(panelBusqueda, BoxLayout.X_AXIS));
+		
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setBorder(null);
+		splitPane.setContinuousLayout(true);
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		panelBusqueda.add(splitPane);
+		
+		JPanel panelListado = new JPanel();
+		splitPane.setLeftComponent(panelListado);
+		panelListado.setLayout(new BoxLayout(panelListado, BoxLayout.X_AXIS));
 		
 		listado = new JTextArea();
 		listado.setBorder(new EmptyBorder(10, 10, 10, 10));
 		listado.setEditable(false);
 		
-		JScrollPane scrollListado = new JScrollPane(listado);
-		panelBusqueda.add(scrollListado);
-		scrollListado.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.LIGHT_GRAY));
+		scrollListado = new JScrollPane(listado);
+		panelListado.add(scrollListado);
+		scrollListado.setBorder(null);
 		
-		JLabel lblResultadosDeBsqueda = new JLabel("B\u00FAsqueda");
+		JLabel lblResultadosDeBsqueda = new JLabel("Resultado");
 		lblResultadosDeBsqueda.setOpaque(true);
 		lblResultadosDeBsqueda.setBackground(SystemColor.controlHighlight);
 		lblResultadosDeBsqueda.setForeground(Color.DARK_GRAY);
@@ -120,15 +149,19 @@ public class UI extends JFrame {
 		lblResultadosDeBsqueda.setBorder(new EmptyBorder(5, 5, 5, 5));
 		scrollListado.setColumnHeaderView(lblResultadosDeBsqueda);
 		
+		JPanel panelRecorrido = new JPanel();
+		splitPane.setRightComponent(panelRecorrido);
+		panelRecorrido.setLayout(new BoxLayout(panelRecorrido, BoxLayout.X_AXIS));
+		
 		recorrido = new JTextArea();
 		recorrido.setBorder(new EmptyBorder(10, 10, 10, 10));
 		recorrido.setForeground(Color.WHITE);
-		recorrido.setBackground(Color.GRAY);
+		recorrido.setBackground(Color.DARK_GRAY);
 		recorrido.setEditable(false);
 		
-		JScrollPane scrollRecorrido = new JScrollPane(recorrido);
-		panelBusqueda.add(scrollRecorrido);
-		scrollRecorrido.setBorder(new MatteBorder(1, 0, 0, 0, (Color) Color.LIGHT_GRAY));
+		scrollRecorrido = new JScrollPane(recorrido);
+		panelRecorrido.add(scrollRecorrido);
+		scrollRecorrido.setBorder(null);
 		
 		JLabel lblTrazaDeBsqueda = new JLabel("Traza");
 		lblTrazaDeBsqueda.setOpaque(true);
@@ -145,7 +178,7 @@ public class UI extends JFrame {
 		panelCentral.add(progreso, BorderLayout.NORTH);
 		
 		JPanel panelSuperior = new JPanel();
-		panelSuperior.setBorder(new MatteBorder(0, 0, 3, 0, (Color) UIManager.getColor("List.selectionBackground")));
+		panelSuperior.setBorder(new MatteBorder(0, 0, 3, 0, (Color) new Color(65, 105, 225)));
 		panelSuperior.setBackground(SystemColor.activeCaption);
 		contentPane.add(panelSuperior, BorderLayout.NORTH);
 		panelSuperior.setLayout(new BorderLayout(0, 0));
@@ -154,7 +187,7 @@ public class UI extends JFrame {
 		lblBuscadorDeArchivos.setForeground(Color.WHITE);
 		lblBuscadorDeArchivos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblBuscadorDeArchivos.setBorder(new EmptyBorder(10, 10, 10, 10));
-		lblBuscadorDeArchivos.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lblBuscadorDeArchivos.setFont(new Font("Tahoma", Font.BOLD, 40));
 		panelSuperior.add(lblBuscadorDeArchivos, BorderLayout.NORTH);
 	}
 	
@@ -192,6 +225,18 @@ public class UI extends JFrame {
 
 	public JProgressBar getProgreso() {
 		return progreso;
+	}
+
+	public JScrollPane getScrollListado() {
+		return scrollListado;
+	}
+
+	public JScrollPane getScrollRecorrido() {
+		return scrollRecorrido;
+	}
+
+	public JButton getExportar() {
+		return exportar;
 	}
 
 }
