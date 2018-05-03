@@ -46,9 +46,9 @@ public class UI extends JFrame {
 	public UI() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UI.class.getResource("/assets/icon.png")));
 		setSize(new Dimension(1000, 800));
-		setPreferredSize(new Dimension(1000, 800));
+		setPreferredSize(new Dimension(800, 800));
 		setTitle("BUSCAMP3");
-		setMinimumSize(new Dimension(1200, 650));
+		setMinimumSize(new Dimension(1100, 650));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -64,17 +64,19 @@ public class UI extends JFrame {
 		panelInferior.setLayout(new BorderLayout(10, 0));
 		
 		JPanel panelPath = new JPanel();
+		panelPath.setBorder(new MatteBorder(1, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		panelInferior.add(panelPath, BorderLayout.WEST);
-		panelPath.setLayout(new BorderLayout(0, 3));
+		panelPath.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblRutaDeBsqueda = new JLabel("Ruta de b\u00FAsqueda");
+		lblRutaDeBsqueda.setBorder(new EmptyBorder(5, 5, 5, 0));
 		lblRutaDeBsqueda.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		panelPath.add(lblRutaDeBsqueda, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(500, 25));
 		panel.setBackground(Color.WHITE);
-		panel.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.DARK_GRAY));
+		panel.setBorder(null);
 		panelPath.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
@@ -89,25 +91,29 @@ public class UI extends JFrame {
 		panelBotones.setLayout(new GridLayout(0, 3, 10, 0));
 		
 		JPanel panelSelector = new JPanel();
+		panelSelector.setBorder(new MatteBorder(1, 0, 1, 0, (Color) Color.LIGHT_GRAY));
 		panelBotones.add(panelSelector);
 		
 		mp3 = new JRadioButton("MP3");
+		mp3.setOpaque(false);
 		mp3.setActionCommand(".mp3");
 		mp3.setSelected(true);
 		mp3.setFocusPainted(false);
-		mp3.setBorder(null);
+		mp3.setBorder(new EmptyBorder(0, 10, 0, 0));
 		
 		wav = new JRadioButton("WAV");
+		wav.setOpaque(false);
 		wav.setBorder(null);
 		wav.setActionCommand(".wav");
 		wav.setFocusPainted(false);
 		
 		flac = new JRadioButton("FLAC");
-		flac.setBorder(null);
+		flac.setOpaque(false);
+		flac.setBorder(new EmptyBorder(0, 0, 0, 10));
 		flac.setActionCommand(".flac");
 		flac.setFocusPainted(false);
 		
-		panelSelector.setLayout(new GridLayout(0, 3, 0, 0));
+		panelSelector.setLayout(new GridLayout(0, 3, 5, 0));
 		panelSelector.add(mp3);
 		panelSelector.add(wav);
 		panelSelector.add(flac);
@@ -242,7 +248,7 @@ public class UI extends JFrame {
 		JLabel lblNewLabel = new JLabel("Ahora busca m\u00E1s que antes");
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBorder(new EmptyBorder(15, 0, 0, 0));
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 13));
+		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 13));
 		panelSuperior.add(lblNewLabel, BorderLayout.CENTER);
 	}
 	
