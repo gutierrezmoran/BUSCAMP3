@@ -30,11 +30,11 @@ public class AccionesExportar {
 			bw = new BufferedWriter(new FileWriter(fichero));
 			bw.write(this.bridge.getListado().getText());
 			bw.close();
+			return true;
+
 		} catch (IOException e) {
 			return false;
 		}
-
-		return true;
 	}
 
 }

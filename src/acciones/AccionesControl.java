@@ -10,8 +10,8 @@ public class AccionesControl {
 		this.bridge = bridge;
 	}
 
-	public void buscar(String path) {
-		this.bridge.getControl().realizarBusqueda(path);
+	public void buscar(String path, String formato) {
+		this.bridge.realizarBusqueda(path, formato);
 	}
 
 	public void actualizarListado() {

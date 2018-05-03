@@ -56,4 +56,20 @@ public class Bridge extends UI {
 		return accionesExportar;
 	}
 
+	public void realizarBusqueda(String path, String formato) {
+		control.realizarBusqueda(path, formato);
+	}
+
+	public void limpiarFicherosMP3() {
+		control.limpiarFicherosMP3();
+	}
+
+	public void limpiarRecorrido() {
+		control.limpiarRecorrido();
+	}
+
+	public void actualizarCantidadFicherosMP3() {
+		accionesControl.actualizarCantidadFicherosMP3();
+	}
+
 }

@@ -21,7 +21,9 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import java.awt.Toolkit;
+import javax.swing.JRadioButton;
 
 public class UI extends JFrame {
 
@@ -36,13 +38,17 @@ public class UI extends JFrame {
 	protected JScrollPane scrollListado;
 	protected JScrollPane scrollRecorrido;
 	protected JButton exportar;
+	protected JRadioButton mp3;
+	protected JRadioButton wav;
+	protected JRadioButton flac;
+	protected ButtonGroup formatos;
 
 	public UI() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UI.class.getResource("/assets/icon.png")));
 		setSize(new Dimension(1000, 800));
 		setPreferredSize(new Dimension(1000, 800));
 		setTitle("BUSCAMP3");
-		setMinimumSize(new Dimension(1000, 650));
+		setMinimumSize(new Dimension(1200, 650));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -58,17 +64,18 @@ public class UI extends JFrame {
 		panelInferior.setLayout(new BorderLayout(10, 0));
 		
 		JPanel panelPath = new JPanel();
-		panelInferior.add(panelPath, BorderLayout.CENTER);
-		panelPath.setLayout(new BorderLayout(0, 5));
+		panelInferior.add(panelPath, BorderLayout.WEST);
+		panelPath.setLayout(new BorderLayout(0, 3));
 		
 		JLabel lblRutaDeBsqueda = new JLabel("Ruta de b\u00FAsqueda");
 		lblRutaDeBsqueda.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		panelPath.add(lblRutaDeBsqueda, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(500, 25));
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.DARK_GRAY));
-		panelPath.add(panel, BorderLayout.CENTER);
+		panelPath.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
 		path = new JTextField();
@@ -79,7 +86,36 @@ public class UI extends JFrame {
 		JPanel panelBotones = new JPanel();
 		panelBotones.setOpaque(false);
 		panelInferior.add(panelBotones, BorderLayout.EAST);
-		panelBotones.setLayout(new GridLayout(0, 2, 5, 0));
+		panelBotones.setLayout(new GridLayout(0, 3, 10, 0));
+		
+		JPanel panelSelector = new JPanel();
+		panelBotones.add(panelSelector);
+		
+		mp3 = new JRadioButton("MP3");
+		mp3.setActionCommand(".mp3");
+		mp3.setSelected(true);
+		mp3.setFocusPainted(false);
+		mp3.setBorder(null);
+		
+		wav = new JRadioButton("WAV");
+		wav.setBorder(null);
+		wav.setActionCommand(".wav");
+		wav.setFocusPainted(false);
+		
+		flac = new JRadioButton("FLAC");
+		flac.setBorder(null);
+		flac.setActionCommand(".flac");
+		flac.setFocusPainted(false);
+		
+		panelSelector.setLayout(new GridLayout(0, 3, 0, 0));
+		panelSelector.add(mp3);
+		panelSelector.add(wav);
+		panelSelector.add(flac);
+		
+		formatos = new ButtonGroup();
+		formatos.add(mp3);
+		formatos.add(wav);
+		formatos.add(flac);
 		
 		buscar = new JButton("Buscar");
 		panelBotones.add(buscar);
@@ -201,7 +237,13 @@ public class UI extends JFrame {
 		lblBuscadorDeArchivos.setHorizontalAlignment(SwingConstants.LEFT);
 		lblBuscadorDeArchivos.setBorder(new EmptyBorder(10, 10, 10, 10));
 		lblBuscadorDeArchivos.setFont(new Font("Tahoma", Font.BOLD, 40));
-		panelSuperior.add(lblBuscadorDeArchivos, BorderLayout.NORTH);
+		panelSuperior.add(lblBuscadorDeArchivos, BorderLayout.WEST);
+		
+		JLabel lblNewLabel = new JLabel("Ahora busca m\u00E1s que antes");
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setBorder(new EmptyBorder(15, 0, 0, 0));
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 13));
+		panelSuperior.add(lblNewLabel, BorderLayout.CENTER);
 	}
 	
 	public void vaciarListado() {
@@ -250,6 +292,10 @@ public class UI extends JFrame {
 
 	public JButton getExportar() {
 		return exportar;
+	}
+
+	public ButtonGroup getFormatos() {
+		return formatos;
 	}
 
 }

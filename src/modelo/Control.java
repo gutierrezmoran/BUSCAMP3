@@ -9,6 +9,7 @@ public class Control {
 	private ArrayList<File> ficheros;
 	private ArrayList<String> ficherosMP3;
 	private ArrayList<String> busqueda;
+	private String formatoBuscado;
 	
 	public Control() {
 		this.ficherosMP3 = new ArrayList<>();
@@ -16,8 +17,9 @@ public class Control {
 		this.busqueda = new ArrayList<>();
 	}
 	
-	private void crear(String path) {
+	private void crear(String path, String formato) {
 		this.file = new File(path);
+		this.formatoBuscado = formato;
 	}
 	
 	private void buscar(File file) {
@@ -27,10 +29,11 @@ public class Control {
 					if(isRutaValida(file)) {
 						this.busqueda.add(file.getCanonicalPath());
 					}
+					
+					buscar(file.listFiles()[i]);
 				} catch (IOException e) {
 					this.busqueda.add("Error al obtener la ruta del directorio");
 				}
-				buscar(file.listFiles()[i]);
 			}
 		} else {
 			try {
@@ -44,12 +47,12 @@ public class Control {
 		}
 	}
 	
-	private boolean isMp3(File file) {
-		return file.getName().toLowerCase().endsWith(".mp3");
+	private boolean isFormato(File file) {
+		return file.getName().toLowerCase().endsWith(this.formatoBuscado);
 	}
 	
 	private boolean isFileValido(File file) {
-		return isMp3(file) && !isRepetido(file);
+		return isFormato(file) && !isRepetido(file);
 	}
 	
 	private boolean isRutaValida(File file) {
@@ -59,9 +62,10 @@ public class Control {
 					return false;
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				return false;
 			}
 		}
+
 		return true;
 	}
 	
@@ -72,19 +76,19 @@ public class Control {
 					return true;
 				}
 			} catch (IOException e) {
-				
+				return false;
 			}
 		}
 		return false;
 	}
 
-	private void buscarMP3() {
+	private void buscarFormato() {
 		for (File file : this.ficheros) {
 			if(isFileValido(file)) {
 				try {
 					this.ficherosMP3.add(file.getCanonicalPath());
 				} catch (IOException e) {
-					
+					this.ficherosMP3.add("Error al obtener la ruta del fichero");
 				}
 			}
 		}
@@ -102,10 +106,10 @@ public class Control {
 		this.busqueda.clear();
 	}
 	
-	public void realizarBusqueda(String path) {
-		crear(path);
+	public void realizarBusqueda(String path, String formato) {
+		crear(path, formato);
 		buscar(this.file);
-		buscarMP3();
+		buscarFormato();
 		borrarInstanciaFile();
 	}
 	
