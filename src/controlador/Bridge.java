@@ -1,7 +1,6 @@
 package controlador;
 
 import java.util.ArrayList;
-
 import acciones.AccionesControl;
 import acciones.AccionesExportar;
 import acciones.AccionesLimpiar;
@@ -9,7 +8,6 @@ import controlador.action.ActionBuscar;
 import controlador.action.ActionExportar;
 import controlador.action.ActionLimpiar;
 import modelo.Buscador;
-import modelo.Temporizador;
 import vista.UI;
 
 public class Bridge extends UI {
@@ -18,7 +16,7 @@ public class Bridge extends UI {
 	private AccionesControl accionesControl;
 	private AccionesLimpiar accionesLimpiar;
 	private AccionesExportar accionesExportar;
-	
+
 	public Bridge() {
 		this.buscador = new Buscador();
 		this.accionesControl = new AccionesControl(this);
@@ -27,21 +25,21 @@ public class Bridge extends UI {
 		establecerActionListener();
 		this.accionesControl.actualizarCantidadFicherosMP3();
 	}
-	
+
 	public void establecerActionListener() {
 		establecerActionBuscar();
 		establecerActionLimpiar();
 		establecerActionExportar();
 	}
-	
+
 	public void establecerActionBuscar() {
 		buscar.addActionListener(new ActionBuscar(this));
 	}
-	
+
 	public void establecerActionLimpiar() {
 		limpiar.addActionListener(new ActionLimpiar(this));
 	}
-	
+
 	public void establecerActionExportar() {
 		exportar.addActionListener(new ActionExportar(this));
 	}
@@ -68,26 +66,6 @@ public class Bridge extends UI {
 
 	public void actualizarCantidadFicherosMP3() {
 		accionesControl.actualizarCantidadFicherosMP3();
-	}
-
-	public Temporizador getTemporizador() {
-		return buscador.getTemporizador();
-	}
-
-	public void incrementarSegundos() {
-		buscador.incrementarSegundos();
-	}
-
-	public void incrementarMinutos() {
-		buscador.incrementarMinutos();
-	}
-
-	public String getSegundosString() {
-		return buscador.getSegundosString();
-	}
-
-	public String getMinutosString() {
-		return buscador.getMinutosString();
 	}
 
 	public boolean isFormato(String path) {
