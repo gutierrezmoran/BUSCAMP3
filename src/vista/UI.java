@@ -31,9 +31,9 @@ public class UI extends JFrame {
 	protected JTextField path;
 	protected JButton buscar;
 	protected JLabel resultados;
-	protected JTextArea listado;
+	protected JTextArea resultado;
 	protected JButton limpiar;
-	protected JTextArea recorrido;
+	protected JTextArea traza;
 	protected JProgressBar progreso;
 	protected JScrollPane scrollListado;
 	protected JScrollPane scrollRecorrido;
@@ -42,6 +42,7 @@ public class UI extends JFrame {
 	protected JRadioButton wav;
 	protected JRadioButton flac;
 	protected ButtonGroup formatos;
+	protected JLabel tiempo;
 
 	public UI() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UI.class.getResource("/assets/icon.png")));
@@ -184,13 +185,13 @@ public class UI extends JFrame {
 		splitPane.setLeftComponent(panelListado);
 		panelListado.setLayout(new BoxLayout(panelListado, BoxLayout.X_AXIS));
 		
-		listado = new JTextArea();
-		listado.setEnabled(false);
-		listado.setBorder(new EmptyBorder(10, 10, 10, 10));
-		listado.setEditable(false);
-		listado.setDisabledTextColor(Color.BLACK);
+		resultado = new JTextArea();
+		resultado.setEnabled(false);
+		resultado.setBorder(new EmptyBorder(10, 10, 10, 10));
+		resultado.setEditable(false);
+		resultado.setDisabledTextColor(Color.BLACK);
 		
-		scrollListado = new JScrollPane(listado);
+		scrollListado = new JScrollPane(resultado);
 		panelListado.add(scrollListado);
 		scrollListado.setBorder(null);
 		
@@ -206,25 +207,39 @@ public class UI extends JFrame {
 		splitPane.setRightComponent(panelRecorrido);
 		panelRecorrido.setLayout(new BoxLayout(panelRecorrido, BoxLayout.X_AXIS));
 		
-		recorrido = new JTextArea();
-		recorrido.setEnabled(false);
-		recorrido.setBorder(new EmptyBorder(10, 10, 10, 10));
-		recorrido.setForeground(Color.WHITE);
-		recorrido.setBackground(Color.DARK_GRAY);
-		recorrido.setEditable(false);
-		recorrido.setDisabledTextColor(Color.WHITE);
+		traza = new JTextArea();
+		traza.setEnabled(false);
+		traza.setBorder(new EmptyBorder(10, 10, 10, 10));
+		traza.setForeground(Color.WHITE);
+		traza.setBackground(Color.DARK_GRAY);
+		traza.setEditable(false);
+		traza.setDisabledTextColor(Color.WHITE);
 		
-		scrollRecorrido = new JScrollPane(recorrido);
+		scrollRecorrido = new JScrollPane(traza);
 		panelRecorrido.add(scrollRecorrido);
 		scrollRecorrido.setBorder(null);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.controlHighlight);
+		scrollRecorrido.setColumnHeaderView(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setOpaque(false);
+		panel_1.add(panel_2, BorderLayout.WEST);
+		panel_2.setLayout(new BorderLayout(5, 0));
+		
 		JLabel lblTrazaDeBsqueda = new JLabel("Traza de b\u00FAsqueda");
+		panel_2.add(lblTrazaDeBsqueda);
 		lblTrazaDeBsqueda.setOpaque(true);
 		lblTrazaDeBsqueda.setBackground(SystemColor.controlHighlight);
 		lblTrazaDeBsqueda.setForeground(Color.DARK_GRAY);
 		lblTrazaDeBsqueda.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblTrazaDeBsqueda.setBorder(new EmptyBorder(5, 5, 5, 5));
-		scrollRecorrido.setColumnHeaderView(lblTrazaDeBsqueda);
+		
+		tiempo = new JLabel("");
+		tiempo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		panel_2.add(tiempo, BorderLayout.EAST);
 		
 		progreso = new JProgressBar();
 		progreso.setPreferredSize(new Dimension(146, 20));
@@ -252,12 +267,16 @@ public class UI extends JFrame {
 		panelSuperior.add(lblNewLabel, BorderLayout.CENTER);
 	}
 	
-	public void vaciarListado() {
-		this.listado.setText("");
+	public boolean isPathEmpty() {
+		return this.path.getText().equals("");
 	}
 	
-	public void vaciarRecorrido() {
-		this.recorrido.setText("");
+	public void vaciarResultado() {
+		this.resultado.setText("");
+	}
+	
+	public void vaciarTraza() {
+		this.traza.setText("");
 	}
 
 	public JPanel getContentPane() {
@@ -276,12 +295,12 @@ public class UI extends JFrame {
 		return resultados;
 	}
 
-	public JTextArea getListado() {
-		return listado;
+	public JTextArea getResultado() {
+		return resultado;
 	}
 
-	public JTextArea getRecorrido() {
-		return recorrido;
+	public JTextArea getTraza() {
+		return traza;
 	}
 
 	public JProgressBar getProgreso() {
@@ -302,6 +321,10 @@ public class UI extends JFrame {
 
 	public ButtonGroup getFormatos() {
 		return formatos;
+	}
+
+	public JLabel getTiempo() {
+		return tiempo;
 	}
 
 }

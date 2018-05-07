@@ -28,7 +28,7 @@ public class AccionesExportar {
 
 		try {
 			bw = new BufferedWriter(new FileWriter(fichero));
-			bw.write(this.bridge.getListado().getText());
+			bw.write(this.bridge.getResultado().getText());
 			bw.close();
 			return true;
 

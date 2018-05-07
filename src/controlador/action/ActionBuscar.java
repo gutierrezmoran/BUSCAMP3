@@ -1,8 +1,10 @@
-package controlador;
+package controlador.action;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingWorker;
+
+import controlador.Bridge;
 
 public class ActionBuscar implements ActionListener{
 	
@@ -19,10 +21,8 @@ public class ActionBuscar implements ActionListener{
 			@Override
 			protected Object doInBackground() throws Exception {
 				bridge.getAccionesControl().buscar(bridge.getPath().getText(), bridge.getFormatos().getSelection().getActionCommand());
-				bridge.getAccionesControl().actualizarListado();
-				bridge.getAccionesControl().actualizarRecorrido();
+				bridge.getAccionesControl().actualizarBusqueda();
 				bridge.getAccionesControl().actualizarCantidadFicherosMP3();
-				bridge.getControl().limpiarFicherosMP3();
 				bridge.getProgreso().setIndeterminate(false);
 				bridge.getBuscar().setEnabled(true);
 				bridge.getExportar().setEnabled(true);
@@ -31,7 +31,7 @@ public class ActionBuscar implements ActionListener{
 			
 		};
 
-		if(!this.bridge.getAccionesControl().isPathEmpty()) {
+		if(!this.bridge.isPathEmpty()) {
 			this.bridge.getProgreso().setIndeterminate(true);
 			this.bridge.getBuscar().setEnabled(false);
 			this.bridge.getExportar().setEnabled(false);

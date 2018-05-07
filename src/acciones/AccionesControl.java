@@ -1,6 +1,7 @@
 package acciones;
 
 import controlador.Bridge;
+import modelo.Buscador;
 
 public class AccionesControl {
 
@@ -11,31 +12,34 @@ public class AccionesControl {
 	}
 
 	public void buscar(String path, String formato) {
-		this.bridge.realizarBusqueda(path, formato);
+		this.bridge.buscar(path, formato);
 	}
 
-	public void actualizarListado() {
-		this.bridge.vaciarListado();
+	public void actualizarResultado() {
+		this.bridge.vaciarResultado();
 
-		for (String path : this.bridge.getControl().getFicherosMP3()) {
-			this.bridge.getListado().setText(this.bridge.getListado().getText() + path + "\r\n");
+		for (String path : this.bridge.getBusqueda()) {
+			if(this.bridge.isFormato(path)) {
+				this.bridge.getResultado().setText(this.bridge.getResultado().getText() + path + "\r\n");
+			}
 		}
 	}
 
-	public void actualizarRecorrido() {
-		this.bridge.vaciarRecorrido();
+	public void actualizarTraza() {
+		this.bridge.vaciarTraza();
 
-		for (String path : this.bridge.getControl().getBusqueda()) {
-			this.bridge.getRecorrido().setText(this.bridge.getRecorrido().getText() + path + "\r\n");
+		for (String path : this.bridge.getBusqueda()) {
+			this.bridge.getTraza().setText(this.bridge.getTraza().getText() + path + "\r\n");
 		}
 	}
-
-	public boolean isPathEmpty() {
-		return this.bridge.getPath().getText().equals("");
+	
+	public void actualizarBusqueda() {
+		actualizarResultado();
+		actualizarTraza();
 	}
 
 	public void actualizarCantidadFicherosMP3() {
-		this.bridge.getResultados().setText(String.valueOf(this.bridge.getControl().obtenerCantidadFicherosMP3()));
+		this.bridge.getResultados().setText(String.valueOf(this.bridge.obtenerEncontrados()));
 	}
 	
 }

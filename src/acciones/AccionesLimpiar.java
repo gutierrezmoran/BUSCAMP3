@@ -12,11 +12,10 @@ public class AccionesLimpiar {
 	}
 	
 	public void limpiarBusqueda() {
-		this.bridge.limpiarFicherosMP3();
-		this.bridge.vaciarListado();
+		this.bridge.vaciarResultado();
+		this.bridge.limpiarBusqueda();
+		this.bridge.vaciarTraza();
 		this.bridge.actualizarCantidadFicherosMP3();
-		this.bridge.limpiarRecorrido();
-		this.bridge.vaciarRecorrido();
 	}
 	
 }

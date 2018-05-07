@@ -1,20 +1,26 @@
 package controlador;
 
+import java.util.ArrayList;
+
 import acciones.AccionesControl;
 import acciones.AccionesExportar;
 import acciones.AccionesLimpiar;
-import modelo.Control;
+import controlador.action.ActionBuscar;
+import controlador.action.ActionExportar;
+import controlador.action.ActionLimpiar;
+import modelo.Buscador;
+import modelo.Temporizador;
 import vista.UI;
 
 public class Bridge extends UI {
 
-	private Control control;
+	private Buscador buscador;
 	private AccionesControl accionesControl;
 	private AccionesLimpiar accionesLimpiar;
 	private AccionesExportar accionesExportar;
 	
 	public Bridge() {
-		this.control = new Control();
+		this.buscador = new Buscador();
 		this.accionesControl = new AccionesControl(this);
 		this.accionesLimpiar = new AccionesLimpiar(this);
 		this.accionesExportar = new AccionesExportar(this);
@@ -40,8 +46,8 @@ public class Bridge extends UI {
 		exportar.addActionListener(new ActionExportar(this));
 	}
 
-	public Control getControl() {
-		return control;
+	public Buscador getBuscador() {
+		return buscador;
 	}
 
 	public AccionesControl getAccionesControl() {
@@ -56,20 +62,48 @@ public class Bridge extends UI {
 		return accionesExportar;
 	}
 
-	public void realizarBusqueda(String path, String formato) {
-		control.realizarBusqueda(path, formato);
-	}
-
-	public void limpiarFicherosMP3() {
-		control.limpiarFicherosMP3();
-	}
-
-	public void limpiarRecorrido() {
-		control.limpiarRecorrido();
+	public void buscar(String path, String formato) {
+		buscador.buscar(path, formato);
 	}
 
 	public void actualizarCantidadFicherosMP3() {
 		accionesControl.actualizarCantidadFicherosMP3();
+	}
+
+	public Temporizador getTemporizador() {
+		return buscador.getTemporizador();
+	}
+
+	public void incrementarSegundos() {
+		buscador.incrementarSegundos();
+	}
+
+	public void incrementarMinutos() {
+		buscador.incrementarMinutos();
+	}
+
+	public String getSegundosString() {
+		return buscador.getSegundosString();
+	}
+
+	public String getMinutosString() {
+		return buscador.getMinutosString();
+	}
+
+	public boolean isFormato(String path) {
+		return buscador.isFormato(path);
+	}
+
+	public void limpiarBusqueda() {
+		buscador.limpiarBusqueda();
+	}
+
+	public ArrayList<String> getBusqueda() {
+		return buscador.getBusqueda();
+	}
+
+	public int obtenerEncontrados() {
+		return buscador.obtenerEncontrados();
 	}
 
 }
